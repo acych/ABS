@@ -48,7 +48,11 @@
             </div>
         </div>
         <img src="./images/img2.jpg"/>
-        const shareData = {
+        <p><button>Share MDN!</button></p>
+        <p class="result"></p>
+    </body>
+    <script>
+    const shareData = {
           title: "MDN",
           text: "Learn web development on MDN!",
           url: "https://developer.mozilla.org",
@@ -66,8 +70,5 @@
             resultPara.textContent = `Error: ${err}`;
           }
         });
-    </body>
-    <script>
-
     </script>
 </html>
