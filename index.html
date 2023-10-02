@@ -49,7 +49,7 @@
         </div>
         <img src="./images/img2.jpg"/>
     <button onclick="shareToInstagram()">Share on Instagram Story</button>
-
+<button onclick="share()">SHARE</button>
     </body>
     <script>
         function shareToInstagram() {
@@ -57,6 +57,33 @@
             const imageUrl = encodeURIComponent('./images/img2.jpg');
 
             window.location.href = `${instagramUrl}/?backgroundImage=${imageUrl}`;
+        }
+        function share(){
+            // Instantiate an intent
+Intent intent = new Intent("com.instagram.share.ADD_TO_STORY");
+
+// Attach your App ID to the intent
+String sourceApplication = "1234567"; // This is your application's FB ID
+intent.putExtra("source_application", sourceApplication);
+
+// Attach your sticker to the intent from a URI, and set background colors
+Uri stickerAssetUri = Uri.parse("./images/img2.jpg");
+intent.setType(MEDIA_TYPE_JPEG);
+intent.putExtra("interactive_asset_uri", stickerAssetUri);
+intent.putExtra("top_background_color", "#33FF33");
+intent.putExtra("bottom_background_color", "#FF00FF");
+
+// Instantiate an activity
+Activity activity = getActivity();
+
+// Grant URI permissions for the sticker
+activity.grantUriPermission(
+    "com.instagram.android", stickerAssetUri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
+
+// Verify that the activity resolves the intent and start it
+if (activity.getPackageManager().resolveActivity(intent, 0) != null) {
+  activity.startActivityForResult(intent, 0);
+}
         }
     </script>
 </html>
